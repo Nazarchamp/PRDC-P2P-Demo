@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <!--Styling is taken from another project of mine, and is thus way too complicated and contains many unused styles-->
+  <style>
+    @charset "UTF-8";
+
+* {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    outline: 0;
+    box-shadow: none;
+    box-sizing: border-box;
+    vertical-align: baseline;
+    transition: all .2s ease-in-out;
+}
+
+.dark-body{
+    background-color: #222;
+}
+
+b{
+    font-family: 'Heaviest Nunito Sans', Lato, sans-serif;
+}
+
+p{
+    font-family: 'Nunito Sans Lighter', Lato, sans-serif;
+}
+
+*, body{
+    font-family: 'Nunito Sans', Lato, sans-serif;
+    color: #FFF;
+}
+
+body{
+    background-color: whitesmoke;
+}
+
+h1, h2, div, p, a, li {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+main{
+    width: 50vw;
+    max-width: 800px;
+    margin: 0 auto;
+    min-height: calc(100vh - 60px);
+    padding-top:20px;
+}
+
+@media screen and (max-width: 1024px) {
+    main {
+        width: calc(100vw - 20px);
+    }
+}
+
+.post{
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px #EEE;
+    border-radius: 6px;
+}
+
+#post-form{
+    height: 180px;
+}
+
+#post-btn-container label i{
+    margin-right: 4px;
+}
+
+#post-btn-container label::after{
+    content: 'Image';
+}
+
+
+#post-btn-container{
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#post-btn-container button, #post-btn-container label{
+    border-radius: 6px;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+#post-btn-container button:hover, #post-btn-container label:hover{
+    cursor: pointer;
+}
+
+#post-btn-container label{
+    background-color: darkorange;
+    display: flex;
+
+}
+
+#post-btn-container label:hover{
+    background-color: #de8419;
+}
+
+#filename{
+    color: black;
+    line-height: 20px;
+    margin-left: 10px;
+    margin-top: 1px;
+}
+
+#file-upload-container{
+    display: flex;
+    align-items: center;
+}
+
+#post-btn-container input{
+
+    display: none;
+}
+
+#post-btn-container button{
+    width: 70px;
+    font-size: 16px;
+    background-color: cornflowerblue;
+}
+
+#post-btn-container button:hover {
+    background-color: #597cb7;
+}
+
+.post-heading{
+    height: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.post-image{
+    max-width: 100%;
+    max-height: 400px;
+    margin-top:20px;
+}
+
+.author{
+    color: black;
+    margin-left: 10px;
+}
+
+#post-textarea{
+    resize: none;
+    border: none;
+    width: 100%;
+    height: 100px;
+    color: black;
+    font-size: 16px;
+}
+
+.post-text{
+    color:black;
+}
+
+
+
+
+/*-------------------------------------------
+Form Styling
+-------------------------------------------*/
+
+.dark-mode-text{
+    color: #FFF !important;
+}
+
+.form-container h2{
+    color: #000;
+}
+
+#output-container{
+    animation-duration: 0s;
+}
+
+.form-container{
+    width: 350px;
+}
+
+main{
+    padding:40px 0;
+}
+
+.fake-form h2{
+    font-size: 24px;
+    font-weight: 600;
+}
+iframe{
+    margin-top:10px;
+    flex-grow: 1;
+}
+
+.fake-form p{
+    margin-top: 4px;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.left-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.fake-form{
+    font-size: 0;
+    width: 350px;
+    max-width: 470px;
+}
+
+.container{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.close-login{
+    position: fixed;
+    right: calc(50vw - 140px);
+    top: calc(50vh - 180px);
+    color: black;
+    cursor: pointer;
+}
+
+input{
+    width: calc(100% - 120px);
+    max-width: 350px;
+    height:50px;
+    padding: 0 15px;
+    background-color: #fff;
+    border: 1px solid #222;
+    border-radius: 4px;
+    font-size:16px;
+    font-weight: 400;
+    color: #000;
+    transition: background-color .25s ease-in-out;
+}
+
+.output{
+    width: 100%;
+    height:50px;
+    max-width: 350px;
+    padding: 0 15px;
+    background-color: #EEE;
+    border-radius: 4px;
+    font-size:16px;
+    margin-top:10px;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.output p, .output b{
+    color: #000;
+    text-align: center;
+}
+
+.fake-form input+input{
+    margin-top: 10px;
+}
+
+input:focus{
+    border: 1px solid #222;
+}
+
+input[type="button"]{
+    width:110px;
+    height:50px;
+    margin-left: 10px;
+    text-align:center;
+    border: 1px solid #222;
+    font-weight: 600;
+    letter-spacing: .2px;
+    color:#FFF;
+    cursor: pointer;
+    background-color: #2E2759;
+}
+
+.dark-input{
+    background-color: #222;
+    color: white;
+    border: 1px solid #FFF;
+}
+
+.dark-input:focus{
+    border: 1px solid white;
+}
+
+.full-size-btn{
+    width: 100% !important;
+    max-width: 350px !important;
+    margin-left: 0 !important;
+}
+
+.circle-input{
+    border: 5px solid #2E2759;
+    max-width: 350px !important;
+    margin-left: 0 !important;
+    border-radius: 50%;
+    width: 125px;
+    height: 125px;
+    font-size: 64px;
+    text-align: center;
+}
+
+.circle-input:focus{
+    border: 5px solid #2E2759;
+}
+
+.circle-input.dark-input:focus{
+    border: 5px solid white;
+}
+
+::placeholder{
+    color: black;
+}
+
+.dark-div{
+    background-color: #444;
+}
+
+.dark-div p, .dark-div b{
+    color: white;
+}
+
+.dark-input::placeholder{
+    color: white;
+}
+
+
+input[type="button"]{
+    border: 1px solid #222;
+}
+
+
+input[type="button"]:hover{
+    background-color: #fff;
+    color: #000;
+}
+
+
+
+.buttons{
+    text-align: left;
+    margin-top: 15px;
+}
+
+.heading {
+    text-align: center;
+    font-size: min(calc(34px + (34 - 24) * ((100vw - 280px) / (1260 - 280))),34px);
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+
+/*--------------------------
+Alternative Contact Styling
+--------------------------*/
+
+.contact-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin:0 auto;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contact-text-container{
+    margin: 15px 0;
+
+}
+
+.contact-text-container p{
+    font-family: 'Nunito Sans Lighter', Lato, sans-serif;
+}
+
+.changeHeadings{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/*-------------------------------
+Media Queries
+-------------------------------*/
+@media screen and (min-width: 768px) {
+    .contact-container {
+        max-width: 800px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .contact-container{
+        max-width: 1000px;
+    }
+}
+
+@media screen and (max-width: 972px){
+    .form-container + .form-container{
+        margin-top: 40px;
+    }
+    .fake-form{
+        width: 100%;
+        margin-top: 0px;
+    }
+    .heading{
+        margin-bottom: 0;
+    }
+    main{
+        padding-bottom: 0;
+    }
+    .contact-container{
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 20px 0;
+        height:auto;
+    }
+}
+
+.output{
+    margin-right: 0;
+}
+
+  </style>
+</head>
+<body>
+  <main>
+    <div class="container" id="post-container">
+        <div class="post" id="post-form">
+            <textarea id="post-textarea" placeholder="Enter Message:"></textarea>
+            <div id="post-btn-container">
+                <button id="post-btn">Send</button>
+            </div>
+        </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
