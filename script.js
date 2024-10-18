@@ -39,7 +39,7 @@ function sendMessage(message) {
   });
 }
 
-// Enter your own ScaleDrone room ID
+// Enter your own ScaleDrone channel ID
 const drone = new ScaleDrone(/* Here */);
 
 
